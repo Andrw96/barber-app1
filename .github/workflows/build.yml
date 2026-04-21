@@ -21,16 +21,13 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install Flet and Dependencies
+      - name: Install dependencies
         run: |
           pip install flet supabase
-
           pip install --upgrade setuptools wheel
 
       - name: Build APK
-        run: |
-
-          flet build apk --verbose
+        run: flet build apk --verbose --no-interaction
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
