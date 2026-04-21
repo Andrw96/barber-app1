@@ -1,7 +1,7 @@
 name: Build APK Barberia
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
 
 jobs:
@@ -9,12 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Python
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
       - name: Install dependencies
-        run: pip install flet supabase serious-python
+        run: pip install flet supabase
       - name: Build APK
         run: flet build apk --verbose
       - name: Upload
