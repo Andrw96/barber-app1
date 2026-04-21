@@ -21,10 +21,13 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: |
           pip install flet supabase
           pip install --upgrade setuptools wheel
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
 
       - name: Build APK
         run: flet build apk --verbose --no-interaction
