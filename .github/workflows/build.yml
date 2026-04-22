@@ -21,19 +21,21 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: |
           pip install flet supabase
           pip install --upgrade setuptools wheel
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Build APK
-        run: flet build apk --verbose --no-interaction
+      - name: Build APK (Buscando main.py automáticamente)
+        run: |
+          # Buscamos dónde está el archivo main.py para no fallar por carpetas
+          APP_PATH=$(find . -name "main.py" -print -quit | xargs dirname)
+          echo "🚀 App encontrada en: $APP_PATH"
+          # Ejecutamos el build desde esa carpeta con todos los permisos
+          flet build apk --project "$APP_PATH" --verbose --no-interaction
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: BarberApp-Release
-          path: build/apk/*.apk
+          name: BarberApp-Final
+          path: "**/build/apk/*.apk"
